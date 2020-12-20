@@ -36,7 +36,7 @@ namespace fordito
 
             if(matrixElem.Trim() == "pop")
             {
-                //stack.Pop();
+                //helper = stack.Pop().ToString();
                 input = input.Substring(1); 
                 return false;
             }
@@ -45,14 +45,6 @@ namespace fordito
             if (matrixElem.Contains('('))
             {
                 string seged = matrixElem.Substring(1).Split(',')[0];
-                string stackContain = "";
-                foreach (string element in stack)
-                {
-                    stackContain += element;
-                }
-                //Console.WriteLine("input: {0},  {1},    {2}", input,stackContain,ruleNumber);
-                sw.WriteLine("{0}, {1}, {2}",input, stackContain, ruleNumber);
-                sw.Flush();
                 
                 for (int j = seged.Length-1; j >= 0; j--)
                 {
@@ -63,9 +55,17 @@ namespace fordito
             if (matrixElem.Contains(')'))
             {
                 ruleNumber += matrixElem.Substring(0, matrixElem.Length - 1).Split(',')[1];
-            }  
-            
-            
+            }
+            //Console.WriteLine("input: {0},  {1},    {2}", input,stackContain,ruleNumber);
+            string stackContain = "";
+            foreach (string element in stack)
+            {
+                stackContain += element;
+            }
+
+            sw.WriteLine("{0}, {1}, {2}", input, stackContain, ruleNumber);
+            sw.Flush();
+
             return false;
         }
 
@@ -83,11 +83,8 @@ namespace fordito
                 {
                     sArray[k] = helper.Split('|')[k];
                 }
-                //sArray = helper.Split('|');
-                //sList.AddRange(sr.ReadLine().Split('|').ToList());
                 for (int j = 0; j < sArray.Length; j++)
                 {
-                    //matrix[i][j] = sList[j];
                     matrix[i, j] = sArray[j];
 
                 }
@@ -98,20 +95,20 @@ namespace fordito
 
         public static StringBuilder sb = new StringBuilder();
         public static string ruleNumber = "";
-        public static string input = "203+304*55#";
+        public static string input = "(203+304)*55#";
         public static bool check = false;
         public static StreamWriter sw = new StreamWriter("output.txt");
+        public static string helper;
 
         static void Main(string[] args)
         {
             fillTheMatrix();
-            string helper;
+            //string helper;
             string[] elements = new string[2];
             input = simple(input);
             stack = new Stack();
             stack.Push("#");
             stack.Push("E");
-
             if (checkInput(input, matrix))
             {
                 do
