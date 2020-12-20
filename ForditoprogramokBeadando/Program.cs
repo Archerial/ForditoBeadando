@@ -48,6 +48,10 @@ namespace fordito
                 
                 for (int j = seged.Length-1; j >= 0; j--)
                 {
+                    if (seged[j].Equals('e'))
+                    {
+                        continue;
+                    }
                     stack.Push(seged[j].ToString());
                 }
             }
